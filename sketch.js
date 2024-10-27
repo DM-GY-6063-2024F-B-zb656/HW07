@@ -1,5 +1,7 @@
 let strings = "";
-
+let idx;
+let xpos;
+let ypos;
 
 function preload() {
   strings = loadStrings("../textstring.txt");
@@ -7,39 +9,39 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(230);
-  frameRate(5);
+  background(0);
+  frameRate(10);
+  textAlign(LEFT, CENTER);
+  xpos = 20;
+  ypos = 60;
+  idx = -1;
 }
 
 function draw() {
-
   string = strings[0];
-
   let words = string.split(" ");
+  idx++;
 
-  let xpos = 20;
-  let ypos = height/2;
-  textSize(30);
+  let red = map(idx, 0, words.length, 0, 255);
+  let green = map(idx, 0, words.length, 186, 255);
+  fill(red, green, 255);
 
-  for(idx = 0; idx < words.length; idx++) {
+  let tSize = map(idx, 0, words.length, 80, 0);
+  textSize(tSize);
 
-    let wordWidth = textWidth(words[idx]);
+  let wordWidth = textWidth(words[idx]);
 
-    text(words[idx], xpos, ypos);
+  text(words[idx], xpos, ypos);
 
-    if (words[idx] == "Cathy") {
-      textSize(12);
-    } else {
-      textSize(30);
-    }
+  xpos = xpos + wordWidth + textWidth(" ");
+  let nextWordWidth = textWidth(words[idx + 1]) || 0;
 
-    xpos = xpos + wordWidth + textWidth(" ");
+  if (xpos > width - nextWordWidth) {
+    ypos += 65;
+    xpos = 20;
+  }
 
-    let nextWordWidth = textWidth(words[idx + 1]) || 0
-
-    if (xpos > width - nextWordWidth) {
-      ypos += 40;
-      xpos = 20;
-    }
+  if (idx == words.length) {
+    setup();
   }
 }

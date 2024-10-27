@@ -1,60 +1,15 @@
-# p5.js Template
+The string I chose was:
 
-This is a README file that can be used to describe and document your assignment.
+"She thrust her mind back to Alice. In the gray wall opposite there was a nail hole. Alice would be in there. And she would put her arm around Cathy’s waist, and Cathy would put her arm around Alice’s waist, and they would walk away — best friends — and tiny as the head of a pin. A warm numbness began to creep into her arms and legs. The pain was going from her hands. Her eyelids felt heavy — very heavy. She yawned. She thought or said or thought, “Alice doesn’t know. I’m going right on past.” Her eyes closed and a dizzy nausea shook her. She opened her eyes and stared about in terror. The gray room darkened and the cone of light flowed and rippled like water. And then her eyes closed again and her fingers curled as though they held small breasts. And her heart beat solemnly and her breathing slowed as she grew smaller and smaller and then disappeared — and she had never been."
+  
+This is the scene of Cathy Ames's suicide in East of Eden. Cathy's connection to Alice in Wonderland is an important motif in the book, and her suicide is originally envisioned by her as a comfort, shrinking down to be safe and happy with Alice. The tragedy, however, is that as she's dying she realizes she's shrinking too small for Alice to see her.
 
-Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)):
+I wanted the text to grow smaller through the animation to reflect this, obviously, eventually ending up at `textSize(0)`. To do this, however, there were a few issues I had to figure out. First was how to make each word appear after the previous, instead of appearing all at once. Then, how to make the text move onto the next line once it had reached the end of the screen. Finally, making the font size grow smaller as the text went on.
 
----
----
+Creating line breaks was made simpler by [this website post](https://erraticgenerator.com/blog/animate-word-by-word-in-p5js/) which was useful in explaining how to use `textWidth()` to move the text onto a new y-position once they had reached the end of the screen. The method for animating individual words was, however, a bit too complicated for me.
 
-# Heading1
-## Heading2
-### Heading3
-#### Heading4
-##### Heading5
-###### Heading6
+My first attempt to draw word-by-word was with a `for()` loop, which proved unsuccessful even with a lot of experimentation. Eventually I decided to experiment by discarding the `for()` loop and just using `idx ++` with `idx` set as a global variable which ended up working. For some reason, when I set it as `idx = 0` in `setup()`, the text would actually begin on the second word, I assume because by the first run in `draw()` it had already added 1 to the count, so I just set the starting point in `setup()` as `idx = -1`.
 
-**bold text**
+Once I abandoned the `for()` loop, getting the font size to grow smaller over the animation got a lot easier and I ended up inversely mapping it to the `idx` count.
 
-*italicized text*
-
-~~strikethrough text~~
-
-Ordered List:
-1. First item
-2. Second item
-3. Third item
-
-Unordered List:
-- First item
-- Second item
-- Third item
-
-`short code block`
-
-```
-extended code block
-fun() {
-  return 0
-}
-```
-
-Link:  
-[linked text](https://www.example.com)
-
-
-Image with url:  
-![image description](https://dm-gy-6063-2024f-b.github.io/assets/homework/02/clark-espaco-modulado-00.jpg)
-
-
-Image on repo:  
-![image description](./file-name.jpg)
-
-
-To start a new line, add two spaces at the end of a line, like this:  
-this is a new line.
-
-
-To start a new paragraph, leave an empty line between two lines of text.
-
-This is a new paragraph.
+After I fiddled around and got the text fitting on the screen like I wanted it, I decided to add a color gradient to the text as well, going from light blue to white against a black background.
